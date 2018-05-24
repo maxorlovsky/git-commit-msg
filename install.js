@@ -7,7 +7,7 @@ const commitMsgFile = path.resolve(root, '.git/hooks/commit-msg');
 
 // Check if commit-msg file exists, if not, it means that it's not a git repo, just stoping the execution
 // If backup already exist, that means that git-commit-msg is already installed, aborting until backup is removed
-if (!fs.existsSync(commitMsgFile) || fs.existsSync(`${commitMsgFile}.backup`)) {
+if (!fs.existsSync(`${commitMsgFile}.sample`) || fs.existsSync(`${commitMsgFile}.backup`)) {
     return;
 }
 
