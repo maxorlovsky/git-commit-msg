@@ -27,22 +27,23 @@ This will replace commit-msg in your .git/hooks folder with code, that will run 
 Configuration is simple and is done in `package.json`, you just need to add git-commit-msg object:
 
 ```js
-"git-commit-msg": {
-    types: [
-        'feat',
-        'fix',
-        'chore',
-        'docs',
-        'refactor',
-        'style',
-        'perf',
-        'test',
-        'revert'
-    ]  
+"git-commit-hook": {
+    "types": [
+        "feat",
+        "fix",
+        "chore",
+        "docs",
+        "refactor",
+        "style",
+        "perf",
+        "test",
+        "revert"
+    ],
+    "lineLength": 72
 }
 ```
 
-This will add rules, so your git commit messages must start using those types like
+git-commit-hook.types (array of strings) will add rules, so your git commit messages must start using those types like
 ```
 feat: <message>
 ```
@@ -52,5 +53,7 @@ or
 ```
 feat(scope/filename): <message>
 ```
+
+git-commit-hook.lineLength (integer) will make sure that lines in your commit message are always less or equal to the number you set into this config
 
 This package is WIP, so propose your ideas - open issue or create pull request.
