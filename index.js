@@ -82,6 +82,8 @@ class gitCommitMsg {
 
             line++;
         }
+
+        return true;
     }
 
     // Check first line of commit message, if there is [Type]([optional scope]): [Subject]
