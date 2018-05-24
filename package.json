@@ -1,12 +1,11 @@
 {
   "name": "git-commit-msg",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Install commit-msg hook into .git folder",
   "main": "index.js",
   "scripts": {
     "install": "node install.js",
-    "uninstall": "node uninstall.js",
-    "remove": "node uninstall.js"
+    "uninstall": "node uninstall.js"
   },
   "repository": {
     "type": "git",
