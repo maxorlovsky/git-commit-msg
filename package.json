@@ -1,6 +1,6 @@
 {
   "name": "git-commit-msg",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Install commit-msg hook into .git folder",
   "main": "index.js",
   "scripts": {

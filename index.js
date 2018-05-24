@@ -44,9 +44,6 @@ class gitCommitMsg {
             this.stop();
         }
 
-        console.log('error');
-        this.stop();
-
         process.exit(0);
     }
 
