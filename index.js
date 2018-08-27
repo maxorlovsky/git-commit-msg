@@ -19,7 +19,11 @@ class gitCommitMsg {
                 'test',
                 'revert'
             ],
-            lineLength: 72
+            lineLength: 72,
+            scope: {
+                mandatory: false,
+                rules: ""
+            }
         }
 
         this.init();
@@ -38,6 +42,10 @@ class gitCommitMsg {
         if (!this.checkTypeSubject()) {
             this.stop();
         }
+
+        if (!this.checkScope()) {
+            this.stop();
+        } 
 
         // Check if lines length is fine, check only if lineLength is integer and not boolean false
         if (this.config.lineLength !== 0 && !this.checkLength()) {
@@ -65,6 +73,11 @@ class gitCommitMsg {
             this.stop();
         } else if (config.lineLength) {
             this.config.lineLength = config.lineLength;
+        }
+
+        // In case there is config.scope, replace default one
+        if (config.scope) {
+            this.config.scope = config.scope;
         }
     }
 
@@ -105,6 +118,45 @@ class gitCommitMsg {
         // Check if there is subject after semicolon
         if (this.message[0].search(regExpSubject) === -1) {
             console.error('git-commit-hook: Subject is not set or there is no space after semicolon');
+            return false;
+        }
+
+        return true;
+    }
+
+    // Check if scope after type is mandatory
+    checkScope() {
+        // Check first if config for scope is set up
+        // If not, return true as default or old rules are set
+        if (!this.config.scope) {
+            return true;
+        }
+
+        // Check if rule for mandatory scope is set
+        // If not, return true
+        if (!this.config.scope.mandatory) {
+            return true;
+        }
+
+        let rules = this.config.scope.rules;
+
+        // Check if rules already have brackets
+        // If yes, strip them
+        if (rules.substr(0, 1) === '(' && rules.substr(-1) === ')') {
+            rules = rules.slice(1, -1);
+        }
+
+        // Add proper regex round brackets
+        // Add additional backslashes for string to work properly with regex
+        const regStr = '\\(' +  rules + '\\)';
+
+        // Check if we have scope in round brackets
+        const regExpType = new RegExp(regStr);
+
+        // Check type and semicolon
+        if (this.message[0].search(regExpType) === -1) {
+            console.error(`git-commit-hook: Scope is not following the regex rules "${regStr}"`);
+            console.error(`git-commit-hook: Don't forget to put 2 backslashes instead of one`);
             return false;
         }
 

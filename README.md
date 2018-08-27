@@ -39,7 +39,11 @@ Configuration is simple and is done in `package.json`, you just need to add git-
         "test",
         "revert"
     ],
-    "lineLength": 72
+    "lineLength": 72,
+    "scope": {
+        "mandatory": false,
+        "rules": ""
+    }
 }
 ```
 
